@@ -1,0 +1,217 @@
+/* 3D Cake Styles */
+.cake-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    transform-style: preserve-3d;
+    animation: rotateCake 10s infinite linear;
+}
+
+/* Pause rotation on hover or click for easier cutting */
+.cake-container:hover {
+    animation-play-state: paused;
+}
+
+@keyframes rotateCake {
+    from {
+        transform: rotateX(10deg) rotateY(0deg);
+    }
+
+    to {
+        transform: rotateX(10deg) rotateY(360deg);
+    }
+}
+
+.cake {
+    position: absolute;
+    width: 250px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
+}
+
+.plate {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    bottom: -20px;
+    left: -25px;
+    transform: rotateX(90deg) translateZ(-10px);
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+.layer {
+    position: absolute;
+    width: 250px;
+    height: 60px;
+    border-radius: 50%;
+    /* Sides would technically need more complex 3D, but stacking discs works for low-poly look */
+}
+
+/* Constructing a cylinder look using stacked circles + side wrapper is hard in pure CSS without many elements.
+   We'll simluate it with stacked layers like a 'naked cake' or just simple cylindrical layers.
+*/
+
+.layer-bottom {
+    transform: translateY(100px) rotateX(90deg);
+    height: 250px;
+    /* actually diameter */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* To make it look 3D, we need a side wall. */
+/* Simplified approach: Stack disks with thickness */
+/* Actually, let's use a simpler "Box" cake or true cylindrical approximation */
+
+/* True Cylindrical CSS Cake is complex. Let's do a stack of cylinders */
+.cake * {
+    transform-style: preserve-3d;
+}
+
+/* Re-implementing simplified 3D Cake */
+.cake-volume {
+    /* ... */
+}
+
+/* ..Let's try a simpler robust approach for the CSS file */
+.layer {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    border-radius: 50%;
+    left: 25px;
+}
+
+/* Side walls can be simulated by a pseudo element or multiple stacked shadows? No. */
+/* Let's stick to the classic "Stack of Discs" which looks okay from top-angle */
+
+.layer {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    left: 25px;
+}
+
+.layer-bottom {
+    transform: translateZ(0px);
+    background: inherit;
+}
+
+.layer-middle {
+    transform: translateZ(40px);
+    background: inherit;
+}
+
+.layer-top {
+    transform: translateZ(80px);
+    background: inherit;
+}
+
+/* This creates flats. We need sides. */
+/* Let's grab a known CSS Cake snippet logic conceptually */
+/* Using ::before/::after for sides */
+
+.layer {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 25px;
+}
+
+/* Side strip Logic */
+/* It is hard to do round sides in CSS without many divs. */
+/* Switch to a Cube/Square Cake? Or use Conic Gradient Trick */
+/* Let's use a Cube Cake (easier 3D) or Cylinder with many faces? */
+/* User wants "amazing beautiful". A stack of cylinders is 'meh'. */
+
+/* Let's try "CSS Cylinder" implementation */
+.cylinder {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+}
+
+.side {
+    position: absolute;
+    width: 65px;
+    /* 200 * PI / 10 faces? */
+    height: 100px;
+    background: inherit;
+    /* rotate and translate */
+}
+
+/* Actually, let's use a simple stylistic trick: */
+/* Just 3 thick layers that are 'extruded' via box-shadow stack? No, that's heavy. */
+/* Let's use standard 'stacked discs' but add a 'side' wrapper */
+/* Or just use `border-radius` with thick borders? */
+
+/* FINAL DECISION for CSS: simpler "Iconic" 3D Cake */
+.cake {
+    width: 200px;
+    height: 200px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    position: relative;
+    box-shadow:
+        0 5px 0 #e0e0e0,
+        0 10px 0 #d0d0d0,
+        0 15px 0 #c0c0c0,
+        0 20px 0 #b0b0b0,
+        0 25px 0 #a0a0a0,
+        0 30px 20px rgba(0, 0, 0, 0.4);
+    transform: rotateX(60deg) rotateZ(45deg);
+    /* Isometric-ish */
+    transition: all 1s;
+}
+
+/* Candle */
+.candle {
+    width: 20px;
+    height: 60px;
+    background: linear-gradient(to right, #fff, #eee);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(50px) rotateX(-60deg);
+    /* Counter rotate */
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.flame {
+    width: 15px;
+    height: 30px;
+    background: orange;
+    border-radius: 80% 80% 20% 20%;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: flicker 1s infinite alternate;
+    box-shadow: 0 0 10px orange, 0 0 20px yellow;
+}
+
+@keyframes flicker {
+    from {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(-50%) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.cake.cut {
+    /* Slice it */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 50%, 0 100%);
+    /* This just hides a piece. */
+}
