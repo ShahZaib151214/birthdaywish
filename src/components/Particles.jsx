@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 const Particles = ({ colors }) => {
   const canvasRef = useRef(null);
@@ -7,7 +7,7 @@ const Particles = ({ colors }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     let animationFrameId;
     let particles = [];
 
@@ -15,7 +15,7 @@ const Particles = ({ colors }) => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
     resize();
 
     class Particle {
@@ -55,7 +55,7 @@ const Particles = ({ colors }) => {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
+      particles.forEach((p) => {
         p.update();
         p.draw();
       });
@@ -66,12 +66,23 @@ const Particles = ({ colors }) => {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
   }, [colors]);
 
-  return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 0 }} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+  );
 };
 
 export default Particles;
